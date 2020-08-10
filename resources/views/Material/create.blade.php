@@ -3,7 +3,7 @@
 @section('content')
 
     <h1>Ajouter une Materiale</h1>
-
+    <h1>material</h1>
     {!! Form::open(array('route' => 'Material.store', 'method' => 'POST'))!!}
         {{Form::token()}}
         <div class=" form-group">
