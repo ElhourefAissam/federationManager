@@ -53,18 +53,20 @@ class EmployeeController extends Controller
     public function store(Request $request)
     {
         $v = $request->validate([
-            'NomFr' => 'required'
+            'NomFr' => 'required',
+            'NomAr' => 'required',
+            'CNI' => 'required',
+            'DNS' => 'required',
+            'Sexe' => 'required',
+            'StatutFamilierFr' => 'required',
+            'StatutFamilierAr' => 'required',
+            'Telephone' => 'required',
+            'AdressFr' => 'required',
+            'AdressAr' => 'required',
+            'Picture' => ['required','image'],
         ]);
 
-        // $ParentId = DB::table('parent')->insertGetId(
-        //          ['NomFr' => $request->input('NomFr'),
-        //           'NomAr' => $request->input('NomAr'),
-        //           'CNI' => $request->input('CNI'),
-        //           'ParenteFr' => $request->input('ParenteFr'),
-        //           'ParenteAr' => $request->input('ParenteAr'),
-        //           'Telephone' => $request->input('Telephone'),
-        //           'AdressFr' => $request->input('AdressFr')] );
-
+        
         $employee = new Employe();
         $employee->NomFr = $request->input('NomFr');
         $employee->NomAr = $request->input('NomAr');
@@ -77,7 +79,18 @@ class EmployeeController extends Controller
         $employee->AdressFr = $request->input('AdressFr');
         $employee->AdressAr = $request->input('AdressAr');
         $employee->Picture = '';
-        // $employee->parent_id = '';
+
+        $ParentId = DB::table('parent')->insertGetId(
+        ['NomFr' => $request->input('NomFr'),
+        'NomAr' => $request->input('NomAr'),
+        'CNI' => $request->input('CNI'),
+        'ParenteFr' => $request->input('ParenteFr'),
+        'ParenteAr' => $request->input('ParenteAr'),
+        'Telephone' => $request->input('Telephone'),
+        'AdressFr' => $request->input('AdressFr')] );
+        // $Parent->save();
+        dd($ParentId);
+        $employee->parent_id = $ParentId;
 
         $employee->save();
         return redirect()->route('Employee.index');

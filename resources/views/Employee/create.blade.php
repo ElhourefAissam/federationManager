@@ -4,13 +4,16 @@
     <h1>Ajouter un Employe</h1>
     {!! Form::open(array('route' => 'Employee.store', 'method' => 'POST'))!!}
         {{Form::token()}}
-        <div class=" form-group">
-            {{ Form::label('NomFr', 'Nom')}}
-            {{ Form::text('NomFr', '', array('class' => 'form-control'))}}
-        </div>
-        <div class=" form-group">
-            {{ Form::label('NomAr', 'الاسم')}}
-            {{ Form::text('NomAr', '', array('class' => 'form-control'))}}
+        <div class="">
+            <div class=" form-group">
+                {{ Form::label('NomFr', 'Nom')}}
+                {{ Form::text('NomFr', '', array('class' => 'form-control'))}}
+            </div>
+            <div class=" form-group">
+                {{ Form::label('NomAr', 'الاسم')}}
+                {{ Form::text('NomAr', '', array('class' => 'form-control'))}}
+            </div>
+
         </div>
         <div class=" form-group">
             {{ Form::label('CNI', 'CNI')}}

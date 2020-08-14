@@ -4,6 +4,25 @@
     <h1>ُEmploye</h1>
     <div class="panel">
         <h3><small>{{$employee->NomFr}}</small><small>{{$employee->NomAr}}</small></h3>
+        {{-- <td>{{$item->NomFr}}</td>
+                    <td>{{$item->NomAr}}</td>
+                    <td>{{$item->CNI}}</td>
+                    <td>{{$item->DNS}}</td>  
+                    <td>{{$item->Sexe}}</td>
+                    <td>{{$item->StatutFamilierFr}}</td>
+                    <td>{{$item->StatutFamilierAr}}</td>
+                    <td>{{$item->Telephone}}</td>
+                    <td>{{$item->AdressFr}}</td>
+                    <td>{{$item->AdressAr}}</td>
+                    <td>
+                        <a class=" nv-indexLine  mb-sm-n1" href="{{route('Employee.show',['Employee'=>$item->id])}}">Afficher</a>
+                        </td>
+                        <td>
+                            <a class=" nv-indexLine  mb-sm-n1" href="{{route('Employee.edit',['Employee'=>$item->id])}}">Modifie</a>
+                        </td>
+                        <td>
+                            <a class=" nv-indexLine mb-sm-n1 text-danger" href="{{route('Employee.destroy',['Employee'=>$item->id])}}">Supprimer</a>
+                    </td> --}}
         <h1>{{$employee->contracts}}</h1>
         <div class="row">
             <a href="{{route('Employee.edit',['Employee' => $employee->id])}}" class="btn btn-warning">Modifie</a>
