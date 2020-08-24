@@ -17,7 +17,7 @@ class CreateHandicapsTable extends Migration
             $table->id();
             $table->string('lebelFr');
             $table->string('lebelAr');
-            $table->string('descriptionfr');
+            $table->string('descriptionFr');
             $table->string('descriptionAr');
             $table->timestamps();
         });

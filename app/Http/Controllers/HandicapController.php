@@ -25,7 +25,8 @@ class HandicapController extends Controller
      */
     public function index()
     {
-        return view('Handicap.index')->with('handicaps',Handicap::all());
+        return view('Handicap.index');
+        // ->with('handicaps',Handicap::all());
     }
 
     /**
@@ -49,7 +50,7 @@ class HandicapController extends Controller
         $handicap = new Handicap();
         $handicap->lebelFr = $request->input('lebelFr');
         $handicap->lebelAr = $request->input('lebelAr');
-        $handicap->descriptionfr = $request->input('descriptionfr');
+        $handicap->descriptionFr = $request->input('descriptionFr');
         $handicap->descriptionAr = $request->input('descriptionAr');
         $handicap->save();
         return redirect()->route('Handicap.index');
@@ -90,7 +91,7 @@ class HandicapController extends Controller
         $handicap = Handicap::findOrFail($id);
         $handicap->lebelFr = $request->input('lebelFr');
         $handicap->lebelAr = $request->input('lebelAr');
-        $handicap->descriptionfr = $request->input('descriptionfr');
+        $handicap->descriptionFr = $request->input('descriptionFr');
         $handicap->descriptionAr = $request->input('descriptionAr');
         $handicap->save();
         return redirect()->route('Handicap.show',['Handicap'=>$id]);
@@ -104,6 +105,6 @@ class HandicapController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Handicap::destroy($id);
     }
 }

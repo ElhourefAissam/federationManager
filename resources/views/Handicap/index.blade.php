@@ -1,8 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
+    <div id="app">
+        <h1 class=" text-info  m-md-3">Liste des Handicaps</h1>
+        {{-- <a class=" btn-block btn-sm m-md-3" href="{{route('Handicap.create')}}">Ajouter</a> --}}
+        
+        <handicap></handicap>
+    
+    </div>
 
-    <h1 class=" text-info  m-md-3">Liste des Handicaps</h1>
+    {{-- <h1 class=" text-info  m-md-3">Liste des Handicaps</h1>
     <a class=" btn-block btn-sm m-md-3" href="{{route('Handicap.create')}}">Ajouter</a>
     
     @forelse ($handicaps as $item)
@@ -17,6 +24,6 @@
     <div class=" alert-danger">
         <h3>No Handicaps load!!</h3>
     </div>       
-    @endforelse
+    @endforelse --}}
 
 @endsection
