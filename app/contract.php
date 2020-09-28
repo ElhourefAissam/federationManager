@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class contract extends Model
+class Contract extends Model
 {
     public function employe()
     {

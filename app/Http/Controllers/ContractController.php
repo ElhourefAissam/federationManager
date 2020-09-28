@@ -27,7 +27,7 @@ class ContractController extends Controller
     public function index()
     {
         $Contrat = DB::table('Contracts')->join('Employes', 'employes.id', '=', 'Contracts.employe_id')->select('Employes.NomFr','Contracts.*')->get();
-        return view('contract.index')->with('Contracts',$Contrat);
+        return view('Contract.index')->with('Contracts',$Contrat);
     }
 
     /**
@@ -37,7 +37,7 @@ class ContractController extends Controller
      */
     public function create()
     {
-        return view('contract.create');
+        return view('Contract.create');
     }
 
     /**

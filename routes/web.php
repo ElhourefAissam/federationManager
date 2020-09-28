@@ -25,7 +25,6 @@ Route::resource('Parent', 'ParentController');
 Route::resource('Student', 'StudentController');
 Route::resource('Vehicle', 'VehicleController');
 
-
 Auth::routes();
 
 Route::get('/', 'HomeController@index');
