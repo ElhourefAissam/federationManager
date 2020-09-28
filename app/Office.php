@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Office extends Model
 {
+    protected $fillable = ['lebelFr','lebelAr','AdressFr','AdressAr','Telephone'];
+
     function employe(){
         return $this->hasMany(Employe::class);
     }
@@ -19,6 +21,7 @@ class Office extends Model
     }
 
     function student(){
-        return $this->hasMany(Student::class);
+        return $this->hasMany(Student::class,'registrations','office_id','student_id');
     }
+    
 }

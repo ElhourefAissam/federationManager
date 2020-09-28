@@ -26,8 +26,8 @@ class CreateStudentsTable extends Migration
             $table->string('AdressAr');
             $table->string('Telephone');
             $table->string('Picture');
-            $table->foreignId('parent_id')->constrained()->onDelete('cascade');
             $table->foreignId('handicap_id')->constrained()->onDelete('cascade');
+            $table->foreignId('parent_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    <div>
+  <app></app>
+    {{-- <div>
         <h1>Index</h1>
         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
@@ -72,5 +73,5 @@
               <span class="sr-only">Next</span>
             </a>
           </div>
-    </div>
+    </div> --}}
 @endsection
