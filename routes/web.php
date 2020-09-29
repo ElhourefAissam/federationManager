@@ -16,16 +16,16 @@ use Illuminate\Support\Facades\Route;
 Route::resource('Home','homeController')->only('index');
 
 
-Route::resource('Offices', 'OfficeController');
-Route::resource('Handicap', 'HandicapController');
-Route::resource('Contract', 'ContractController');
-Route::resource('Employee', 'EmployeeController');
-Route::resource('Material', 'MaterialController');
-Route::resource('Parent', 'ParentController');
-Route::resource('Student', 'StudentController');
-Route::resource('Vehicle', 'VehicleController');
+// Route::resource('Offices', 'OfficeController');
+// Route::resource('Handicap', 'HandicapController');
+// Route::resource('Contract', 'ContractController');
+// Route::resource('Employee', 'EmployeeController');
+// Route::resource('Material', 'MaterialController');
+// Route::resource('Parent', 'ParentController');
+// Route::resource('Student', 'StudentController');
+// Route::resource('Vehicle', 'VehicleController');
+Route::get('/', 'HomeController@index');
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index');
 

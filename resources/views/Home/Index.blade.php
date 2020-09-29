@@ -1,7 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-  <app></app>
+  <div id="id">
+    <App></App>
+  </div>
     {{-- <div>
         <h1>Index</h1>
         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">

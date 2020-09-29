@@ -38,40 +38,7 @@
 
 
                     <div class="collapse navbar-collapse" >
-                        <ul class="navbar-nav mr-auto">
-                          <li class="nav-item">
-                            <a class="nav-link" href="{{route('Offices.index')}}">Offices</a>
-                          </li>
-                          <li class="nav-item">
-                            <a class="nav-link" href="{{route('Handicap.index')}}">Handicap</a>
-                          </li>
-                          <li class="nav-item">
-                            <a class="nav-link" href="{{route('Employee.index')}}">Employee</a>
-                          </li>
-                          <li class="nav-item">
-                            <a class="nav-link" href="{{route('Student.index')}}">Student</a>
-                          </li>
-                          <li class="nav-item">
-                            <a class="nav-link" href="{{route('Material.index')}}">Material</a>
-                          </li>
-                          <li class="nav-item">
-                            <a class="nav-link" href="{{route('Parent.index')}}">Parent</a>
-                          </li>
-                          <li class="nav-item">
-                            <a class="nav-link" href="{{route('Vehicle.index')}}">Vehicle</a>
-                          </li>
-                          <li class="nav-item">
-                            <a class="nav-link" href="#about">About</a>
-                          </li>
-                          <li class="nav-item">
-                            <a class="nav-link" href="#contact">Contact</a>
-                          </li>
-                          <li class="nav-item">
-                            <a class="nav-link" href="#more">More</a>
-                          </li>
-                        </ul>
-                      </div>
-
+                      <Nav></Nav>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">

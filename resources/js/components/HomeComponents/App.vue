@@ -1,8 +1,8 @@
 <template>
     <div>
-    <transition name="route" mode="out-in">
-        <router-view :key="$route.path"></router-view>
-    </transition>
+        <transition name="route" mode="out-in">
+            <router-view :key="$route.path"></router-view>
+        </transition>
     </div>
 </template>
 <script>

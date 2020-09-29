@@ -8,5 +8,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/handicap/{q?}', 'Api\HandicapController@index');
+Route::resource('Handicap', 'Api\HandicapController');
+Route::resource('Office', 'Api\OfficeController');
+Route::resource('Employe', 'Api\EmployeController');
+Route::resource('Student', 'Api\StudentController');
 Route::resource('handicap', 'Api\HandicapController');
 // Route::post('/handicap', 'Api\HandicapController@store');

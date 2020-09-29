@@ -3,26 +3,25 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function index()
     {
+        // if (!Auth::check() && $request->path() != 'login') {
+        //     return redirect('/login');
+        // }
+
+        $user = Auth::user();
+        // if ($user->userType == 'User') {
+        //     return redirect('/login');
+        // }
+        // if ($request->path() == 'login') {
+        //     return redirect('/');
+        // }
+
+        // return $this->checkForPermission($user, $request);
         return view('Home.index');
     }
 }
