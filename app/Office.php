@@ -16,7 +16,7 @@ class Office extends Model
         return $this->hasMany(Contract::class);
     }
 
-    function room(){
+    function rooms(){
         return $this->hasMany(Room::class);
     }
 

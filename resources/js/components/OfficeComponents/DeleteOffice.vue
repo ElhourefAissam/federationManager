@@ -32,7 +32,7 @@ export default {
     },
     methods : {
         DeleteOffice : function(){
-            axios.delete('http://localhost/federationlaravel/public/api/office/'+this.office.id)
+            axios.delete('http://localhost/federationlaravel/public/api/Office/'+this.office.id)
             .then((response) => {
                 this.$emit('OfficeDeleted',response)
             })

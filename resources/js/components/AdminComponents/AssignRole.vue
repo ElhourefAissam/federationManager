@@ -8,8 +8,8 @@
             Role Manangement
           <select v-model="data.id" @on-change="changeAdmin">
             <option disabled value="">Choisissez</option>
-            <option v-for="(r, i) in roles" v-if="roles.length" :key="i" v-bind:value="r.id">
-            {{ r.roleName }}
+            <option v-for="(r, i) in roles"  :key="i" v-bind:value="r.id">
+              {{ r.roleName }}
             </option>
           </select>
           <span>Sélectionné : {{ data.id }}</span>
@@ -31,7 +31,6 @@
                 <td>{{r.resourceName}}</td>
                 <td><div class="form-check">
                     <input v-model="r.read" class="form-check-input position-static" type="checkbox" value="r.read">
-                    <Checkbox v-model="r.read"></Checkbox>
                 </div></td>
                 <td><div class="form-check">
                     <input v-model="r.write" class="form-check-input position-static" type="checkbox" value="r.write">
@@ -58,49 +57,58 @@
 
 <script>
 export default {
+  props : ['user', 'permission'],
   data() {
     return {
       data: {
         id: ''
       },
       isSending : false,
-     roles: [],
-     resources: [
-          {resourceName: 'Home', read: false, write: false, update: false, delete: false, name: '/'},
-          {resourceName: 'Office', read: false, write: false, update: false, delete: false, name: 'Office'},
-          {resourceName: 'Category', read: false, write: false, update: false, delete: false, name: 'category'},
-          {resourceName: 'Create blogs', read: false, write: false, update: false, delete: false, name: 'createBlog'},
-          {resourceName: 'Blogs', read: false, write: false, update: false, delete: false, name: 'blogs'},
-          {resourceName: 'Admin users', read: false, write: false, update: false, delete: false, name: 'adminusers'},
-          {resourceName: 'Role', read: false, write: false, update: false, delete: false, name: 'role'},
-          {resourceName: 'Assign Role', read: false, write: false, update: false, delete: false, name: 'assignRole'},
+      roles: [],
+      resources: [
+        {resourceName: '/', read: true, write: true, update: true, delete: true, name: '/'},
+        {resourceName: 'Home', read: true, write: true, update: true, delete: true, name: '/Home'},
+        {resourceName: 'Offices', read: true, write: true, update: true, delete: true, name: 'Office'},
+        {resourceName: 'DetailsOffices', read: false, write: false, update: false, delete: false, name: 'category'},
+        {resourceName: 'Handicap', read: false, write: false, update: false, delete: false, name: 'createBlog'},
+        {resourceName: 'Employe', read: false, write: false, update: false, delete: false, name: 'blogs'},
+        {resourceName: 'AssignRole', read: false, write: false, update: false, delete: false, name: 'adminusers'},
+        {resourceName: 'Role', read: false, write: false, update: false, delete: false, name: 'role'},
       ],
       defaultResourcesPermission: [
-          {resourceName: 'Home', read: false, write: false, update: false, delete: false, name: '/'},
-          {resourceName: 'Tags', read: false, write: false, update: false, delete: false, name: 'tags'},
-          {resourceName: 'Category', read: false, write: false, update: false, delete: false, name: 'category'},
-          {resourceName: 'Create blogs', read: false, write: false, update: false, delete: false, name: 'createBlog'},
-          {resourceName: 'Blogs', read: false, write: false, update: false, delete: false, name: 'blogs'},
-          {resourceName: 'Admin users', read: false, write: false, update: false, delete: false, name: 'adminusers'},
-          {resourceName: 'Role', read: false, write: false, update: false, delete: false, name: 'role'},
-          {resourceName: 'Assign Role', read: false, write: false, update: false, delete: false, name: 'assignRole'},
+        {resourceName: '/', read: false, write: false, update: false, delete: false, name: '/'},
+        {resourceName: 'Home', read: false, write: false, update: false, delete: false, name: '/Home'},
+        {resourceName: 'Offices', read: false, write: false, update: false, delete: false, name: 'Office'},
+        {resourceName: 'DetailsOffices', read: false, write: false, update: false, delete: false, name: 'category'},
+        {resourceName: 'Handicap', read: false, write: false, update: false, delete: false, name: 'createBlog'},
+        {resourceName: 'Employe', read: false, write: false, update: false, delete: false, name: 'blogs'},
+        {resourceName: 'AssignRole', read: false, write: false, update: false, delete: false, name: 'adminusers'},
+        {resourceName: 'Role', read: false, write: false, update: false, delete: false, name: 'role'},
       ],
     };
   },
   mounted() {
-    this.getRoles()
+    this.getRoles();
   },
   methods: {
       assignRoles(){
-        let data = JSON.stringify(this.resources)
-        axios.post('http://localhost/federationlaravel/public/api/assign_roles', {'permission' : data, 'id': this.data.id})
+        let dataa = JSON.stringify(this.resources)
+        axios.post('http://localhost/federationlaravel/public/api/assignRole', {'permission' : dataa, 'id': this.data.id})
         .then( (response)=> {
+          console.log(dataa)
             let index = this.roles.findIndex(role => role.id == this.data.id)
             this.roles[index].permission = data
         })
         .catch(error => console.log(error));
-     },
-     changeAdmin(){
+      },
+      getRoles(){
+        axios.get('http://localhost/federationlaravel/public/api/getRoles')
+        .then( (response)=> {
+            this.roles = response.data;
+        })
+        .catch(error => console.log(error));
+      },
+      changeAdmin(){
        let index = this.roles.findIndex(role => role.id == this.data.id)
        console.log(index)
        let permission = this.roles[index].permission
@@ -110,14 +118,7 @@ export default {
          this.resources = JSON.parse(permission)
        }
      },
-    getRoles() {
-        axios.get('http://localhost/federationlaravel/public/api/get_roles')
-        .then(response => {
-          this.roles = response.data;
-          console.log(this.roles)
-        });
-    },
-    
+   
   },
 };
 </script>

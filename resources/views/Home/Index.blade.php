@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-  <div id="id">
-    <App></App>
+  <div id="app">
+    <App :user="{{Auth::user()}}" ></App>
   </div>
     {{-- <div>
         <h1>Index</h1>

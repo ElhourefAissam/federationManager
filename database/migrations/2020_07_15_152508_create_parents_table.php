@@ -16,13 +16,13 @@ class CreateParentsTable extends Migration
         Schema::create('parents', function (Blueprint $table) {
             $table->id();
             $table->string('NomFr');
-            $table->string('NomAr');
+            $table->string('NomAr')->nullable();
             $table->string('CNI');
-            $table->string('ParenteFr');
-            $table->string('ParenteAr');
-            $table->string('Telephone');
-            $table->string('AdressFr');
-            $table->string('AdressAr');
+            $table->string('ParenteFr')->nullable();
+            $table->string('ParenteAr')->nullable();
+            $table->string('Telephone')->nullable();
+            $table->string('AdressFr')->nullable();
+            $table->string('AdressAr')->nullable();
             $table->timestamps();
         });
     }

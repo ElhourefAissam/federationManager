@@ -17,9 +17,9 @@ class CreateOfficesTable extends Migration
             $table->id();
             $table->string('lebelFr');
             $table->string('lebelAr');
-            $table->string('AdressFr');
-            $table->string('AdressAr');
-            $table->string('Telephone');
+            $table->string('AdressFr')->nullable();
+            $table->string('AdressAr')->nullable();
+            $table->string('Telephone')->nullable();
             $table->timestamps();
         });
     }

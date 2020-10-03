@@ -16,9 +16,9 @@ class CreateHandicapsTable extends Migration
         Schema::create('handicaps', function (Blueprint $table) {
             $table->id();
             $table->string('lebelFr');
-            $table->string('lebelAr');
-            $table->string('descriptionFr');
-            $table->string('descriptionAr');
+            $table->string('lebelAr')->nullable();
+            $table->string('descriptionFr')->nullable();
+            $table->string('descriptionAr')->nullable();
             $table->timestamps();
         });
     }

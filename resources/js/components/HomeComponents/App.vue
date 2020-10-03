@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id="app">
         <transition name="route" mode="out-in">
             <router-view :key="$route.path"></router-view>
         </transition>
@@ -7,7 +7,7 @@
 </template>
 <script>
 export default {
-    
+   
 }
 </script>
 <style scoped>

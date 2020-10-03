@@ -18,15 +18,15 @@ class CreateEmployesTable extends Migration
             $table->string('NomFr');
             $table->string('NomAr');
             $table->string('CNI');
-            $table->date('DNS');
-            $table->string('Sexe');
-            $table->string('StatutFamilierFr');
-            $table->string('StatutFamilierAr');
+            $table->date('DNS')->nullable();
+            $table->string('Sexe')->nullable();
+            $table->string('StatutFamilierFr')->nullable();
+            $table->string('StatutFamilierAr')->nullable();
             $table->string('Telephone');
-            $table->string('AdressFr');
-            $table->string('AdressAr');
-            $table->string('Picture');
-            $table->foreignId('parent_id')->constrained()->onDelete('cascade');
+            $table->string('AdressFr')->nullable();
+            $table->string('AdressAr')->nullable();
+            $table->string('Picture')->nullable();
+            $table->foreignId('parent_id')->nullable()->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

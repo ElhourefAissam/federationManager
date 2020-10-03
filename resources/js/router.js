@@ -2,7 +2,6 @@ import Router from 'vue-router'
 import Vue from 'vue'
 Vue.use(Router)
 
-import App from './components/HomeComponents/App'
 
 const routes = [
     //Admin
@@ -21,7 +20,7 @@ const routes = [
     {
         path: '/',
         name: 'Home',
-        component: App
+        component: () => import("./components/HomeComponents/App")
     },
     {
         path: '/federationlaravel/public/Offices',
@@ -61,3 +60,7 @@ export default new Router({
     mode: 'history',
     routes
 })
+
+new Vue(
+    Vue.util.extend({routes})
+)

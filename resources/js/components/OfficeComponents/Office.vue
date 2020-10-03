@@ -42,7 +42,7 @@
             <div class="">
                 <pagination :data="Offices" @pagination-change-page="getResults" class="mt-5"></pagination>
             </div>
-            <div v-if="!this.Offices" class="alert-danger">
+            <div v-if="!this.Offices.data" class="alert-danger">
                 <h3>No Offices load!!</h3>
             </div>    
     </div>
@@ -61,7 +61,7 @@ export default {
     },
     methods : {
         getResults(page = 1) {
-			axios.get('http://localhost/federationlaravel/public/api/office/'+ this.q+'?page=' + page)
+			axios.get('http://localhost/federationlaravel/public/api/Office/'+ this.q+'?page=' + page)  
 				.then(response => {
 					this.Offices = response.data;
 				});
@@ -75,7 +75,7 @@ export default {
         },
         FindOffice(){
             if(this.q.length > 0){
-                axios.get('http://localhost/federationlaravel/public/api/office/'+ this.q)
+                axios.get('http://localhost/federationlaravel/public/api/Office/'+ this.q)
 				.then(response => {
                     this.Offices = response.data;
 				});

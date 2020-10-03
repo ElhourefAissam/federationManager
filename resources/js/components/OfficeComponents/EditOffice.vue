@@ -53,7 +53,7 @@ export default {
     },
     methods : {
         UpdateOffice : function(){
-            axios.put('http://localhost/federationlaravel/public/api/office/'+this.office.id,{
+            axios.put('http://localhost/federationlaravel/public/api/Office/'+this.office.id,{
                 lebelFr : this.office.lebelFr,
                 lebelAr : this.office.lebelAr,
                 AdressFr : this.office.AdressFr,

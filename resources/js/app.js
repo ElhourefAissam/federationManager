@@ -2,12 +2,13 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+import router from './router'
 
 // home
 Vue.component('App', require('./components/HomeComponents/App.vue').default);
 
 // nav
-Vue.component('Nav', require('./components/NavComponents/Nav.vue').default);
+Vue.component('N', require('./components/NavComponents/Nav.vue').default);
 
 // admin
 Vue.component('AssignRole', require('./components/AdminComponents/AssignRole.vue').default);
@@ -40,4 +41,5 @@ Vue.component('pagination', require('laravel-vue-pagination'));
 
 const app = new Vue({
     el: '#app',
+    router
 });

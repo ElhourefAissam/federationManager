@@ -62,7 +62,7 @@ export default {
     },
     methods : {
         AddOffice : function(){
-            axios.post('http://localhost/federationlaravel/public/api/office',{
+            axios.post('http://localhost/federationlaravel/public/api/Office',{
                 lebelFr : this.lebelFr,
                 lebelAr : this.lebelAr,
                 AdressFr : this.AdressFr,
