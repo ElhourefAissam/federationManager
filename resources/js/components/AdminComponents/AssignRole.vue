@@ -6,13 +6,12 @@
         <div class="">
           <p class="">
             Role Manangement
-          <select v-model="data.id" @on-change="changeAdmin">
-            <option disabled value="">Choisissez</option>
+          <select v-model="data.id" @change="changeAdmin">
+            <option disabled value="0">Choisissez</option>
             <option v-for="(r, i) in roles"  :key="i" v-bind:value="r.id">
               {{ r.roleName }}
             </option>
           </select>
-          <span>Sélectionné : {{ data.id }}</span>
 
           <div class="">
             <table class="table table- d-xl-table-cell data-table">
@@ -43,7 +42,7 @@
                 </div></td>
               </tr>
               <!-- ITEMS -->
-              <div class=" mt-2 center">
+              <div v-if="data.id != ''" class=" mt-2 center">
                   <Button class="primary" @click="assignRoles">Assign</Button>
               </div>
             </table>
@@ -66,24 +65,22 @@ export default {
       isSending : false,
       roles: [],
       resources: [
-        {resourceName: '/', read: true, write: true, update: true, delete: true, name: '/'},
-        {resourceName: 'Home', read: true, write: true, update: true, delete: true, name: '/Home'},
-        {resourceName: 'Offices', read: true, write: true, update: true, delete: true, name: 'Office'},
-        {resourceName: 'DetailsOffices', read: false, write: false, update: false, delete: false, name: 'category'},
-        {resourceName: 'Handicap', read: false, write: false, update: false, delete: false, name: 'createBlog'},
-        {resourceName: 'Employe', read: false, write: false, update: false, delete: false, name: 'blogs'},
-        {resourceName: 'AssignRole', read: false, write: false, update: false, delete: false, name: 'adminusers'},
-        {resourceName: 'Role', read: false, write: false, update: false, delete: false, name: 'role'},
+        {resourceName: 'Home', read: true, write: false, update: false, delete: false, name: '/'},
+        {resourceName: 'Offices', read: true, write: false, update: false, delete: false, name: 'Offices'},
+        {resourceName: 'DetailsOffices', read: false, write: false, update: false, delete: false, name: 'Office'},
+        {resourceName: 'Handicap', read: false, write: false, update: false, delete: false, name: 'Handicap'},
+        {resourceName: 'Employe', read: false, write: false, update: false, delete: false, name: 'Employe'},
+        {resourceName: 'AssignRole', read: false, write: false, update: false, delete: false, name: 'AssignRole'},
+        {resourceName: 'Role', read: false, write: false, update: false, delete: false, name: 'Role'},
       ],
       defaultResourcesPermission: [
-        {resourceName: '/', read: false, write: false, update: false, delete: false, name: '/'},
-        {resourceName: 'Home', read: false, write: false, update: false, delete: false, name: '/Home'},
-        {resourceName: 'Offices', read: false, write: false, update: false, delete: false, name: 'Office'},
-        {resourceName: 'DetailsOffices', read: false, write: false, update: false, delete: false, name: 'category'},
-        {resourceName: 'Handicap', read: false, write: false, update: false, delete: false, name: 'createBlog'},
-        {resourceName: 'Employe', read: false, write: false, update: false, delete: false, name: 'blogs'},
-        {resourceName: 'AssignRole', read: false, write: false, update: false, delete: false, name: 'adminusers'},
-        {resourceName: 'Role', read: false, write: false, update: false, delete: false, name: 'role'},
+        {resourceName: 'Home', read: true, write: false, update: false, delete: false, name: '/'},
+        {resourceName: 'Offices', read: true, write: false, update: false, delete: false, name: 'Offices'},
+        {resourceName: 'DetailsOffices', read: false, write: false, update: false, delete: false, name: 'Office'},
+        {resourceName: 'Handicap', read: false, write: false, update: false, delete: false, name: 'Handicap'},
+        {resourceName: 'Employe', read: false, write: false, update: false, delete: false, name: 'Employe'},
+        {resourceName: 'AssignRole', read: false, write: false, update: false, delete: false, name: 'AssignRole'},
+        {resourceName: 'Role', read: false, write: false, update: false, delete: false, name: 'Role'},
       ],
     };
   },
@@ -95,9 +92,8 @@ export default {
         let dataa = JSON.stringify(this.resources)
         axios.post('http://localhost/federationlaravel/public/api/assignRole', {'permission' : dataa, 'id': this.data.id})
         .then( (response)=> {
-          console.log(dataa)
-            let index = this.roles.findIndex(role => role.id == this.data.id)
-            this.roles[index].permission = data
+          let index = this.roles.findIndex(role => role.id == this.data.id)
+          this.roles[index].permission = JSON.parse(response.config.data).permission
         })
         .catch(error => console.log(error));
       },
@@ -110,7 +106,6 @@ export default {
       },
       changeAdmin(){
        let index = this.roles.findIndex(role => role.id == this.data.id)
-       console.log(index)
        let permission = this.roles[index].permission
        if(!permission){
            this.resources = this.defaultResourcesPermission

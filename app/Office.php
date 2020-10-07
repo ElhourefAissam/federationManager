@@ -24,4 +24,7 @@ class Office extends Model
         return $this->hasMany(Student::class,'registrations','office_id','student_id');
     }
     
+    function posts(){
+        return $this->hasMany(Post::class);
+    }
 }

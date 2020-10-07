@@ -1964,7 +1964,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['user', 'permission'],
   data: function data() {
@@ -1975,118 +1974,104 @@ __webpack_require__.r(__webpack_exports__);
       isSending: false,
       roles: [],
       resources: [{
-        resourceName: '/',
-        read: true,
-        write: true,
-        update: true,
-        "delete": true,
-        name: '/'
-      }, {
         resourceName: 'Home',
         read: true,
-        write: true,
-        update: true,
-        "delete": true,
-        name: '/Home'
+        write: false,
+        update: false,
+        "delete": false,
+        name: '/'
       }, {
         resourceName: 'Offices',
         read: true,
-        write: true,
-        update: true,
-        "delete": true,
-        name: 'Office'
+        write: false,
+        update: false,
+        "delete": false,
+        name: 'Offices'
       }, {
         resourceName: 'DetailsOffices',
         read: false,
         write: false,
         update: false,
         "delete": false,
-        name: 'category'
+        name: 'Office'
       }, {
         resourceName: 'Handicap',
         read: false,
         write: false,
         update: false,
         "delete": false,
-        name: 'createBlog'
+        name: 'Handicap'
       }, {
         resourceName: 'Employe',
         read: false,
         write: false,
         update: false,
         "delete": false,
-        name: 'blogs'
+        name: 'Employe'
       }, {
         resourceName: 'AssignRole',
         read: false,
         write: false,
         update: false,
         "delete": false,
-        name: 'adminusers'
+        name: 'AssignRole'
       }, {
         resourceName: 'Role',
         read: false,
         write: false,
         update: false,
         "delete": false,
-        name: 'role'
+        name: 'Role'
       }],
       defaultResourcesPermission: [{
-        resourceName: '/',
-        read: false,
+        resourceName: 'Home',
+        read: true,
         write: false,
         update: false,
         "delete": false,
         name: '/'
       }, {
-        resourceName: 'Home',
-        read: false,
-        write: false,
-        update: false,
-        "delete": false,
-        name: '/Home'
-      }, {
         resourceName: 'Offices',
-        read: false,
+        read: true,
         write: false,
         update: false,
         "delete": false,
-        name: 'Office'
+        name: 'Offices'
       }, {
         resourceName: 'DetailsOffices',
         read: false,
         write: false,
         update: false,
         "delete": false,
-        name: 'category'
+        name: 'Office'
       }, {
         resourceName: 'Handicap',
         read: false,
         write: false,
         update: false,
         "delete": false,
-        name: 'createBlog'
+        name: 'Handicap'
       }, {
         resourceName: 'Employe',
         read: false,
         write: false,
         update: false,
         "delete": false,
-        name: 'blogs'
+        name: 'Employe'
       }, {
         resourceName: 'AssignRole',
         read: false,
         write: false,
         update: false,
         "delete": false,
-        name: 'adminusers'
+        name: 'AssignRole'
       }, {
         resourceName: 'Role',
         read: false,
         write: false,
         update: false,
         "delete": false,
-        name: 'role'
+        name: 'Role'
       }]
     };
   },
@@ -2102,13 +2087,11 @@ __webpack_require__.r(__webpack_exports__);
         'permission': dataa,
         'id': this.data.id
       }).then(function (response) {
-        console.log(dataa);
-
         var index = _this.roles.findIndex(function (role) {
           return role.id == _this.data.id;
         });
 
-        _this.roles[index].permission = data;
+        _this.roles[index].permission = JSON.parse(response.config.data).permission;
       })["catch"](function (error) {
         return console.log(error);
       });
@@ -2128,7 +2111,6 @@ __webpack_require__.r(__webpack_exports__);
       var index = this.roles.findIndex(function (role) {
         return role.id == _this3.data.id;
       });
-      console.log(index);
       var permission = this.roles[index].permission;
 
       if (!permission) {
@@ -2230,30 +2212,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2263,19 +2221,31 @@ __webpack_require__.r(__webpack_exports__);
       roles: [],
       editData: {
         roleName: ""
-      },
-      index: -1,
-      // showDeleteModal: false,
-      isDeleing: false,
-      deleteItem: {},
-      deletingIndex: -1,
-      websiteSettings: []
+      }
     };
   },
+  mounted: function mounted() {
+    this.getRoles();
+  },
   methods: {
+    getRoles: function getRoles() {
+      var _this = this;
+
+      axios.get('http://localhost/federationlaravel/public/api/getRoles').then(function (response) {
+        _this.roles = response.data;
+      })["catch"](function (error) {
+        return console.log(error);
+      });
+    },
     addRole: function addRole() {
-      axios.post("http://localhost/federationlaravel/public/create_role", this.data.roleName).then(function (response) {
+      var _this2 = this;
+
+      var data = new FormData();
+      data.append('roleName', this.data.roleName);
+      axios.post("http://localhost/federationlaravel/public/api/addRole", data).then(function (response) {
         console.log(response);
+
+        _this2.getRoles();
       })["catch"](function (error) {
         return console.log(error);
       });
@@ -40395,26 +40365,30 @@ var render = function() {
                   }
                 ],
                 on: {
-                  "on-change": _vm.changeAdmin,
-                  change: function($event) {
-                    var $$selectedVal = Array.prototype.filter
-                      .call($event.target.options, function(o) {
-                        return o.selected
-                      })
-                      .map(function(o) {
-                        var val = "_value" in o ? o._value : o.value
-                        return val
-                      })
-                    _vm.$set(
-                      _vm.data,
-                      "id",
-                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-                    )
-                  }
+                  change: [
+                    function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.$set(
+                        _vm.data,
+                        "id",
+                        $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      )
+                    },
+                    _vm.changeAdmin
+                  ]
                 }
               },
               [
-                _c("option", { attrs: { disabled: "", value: "" } }, [
+                _c("option", { attrs: { disabled: "", value: "0" } }, [
                   _vm._v("Choisissez")
                 ]),
                 _vm._v(" "),
@@ -40427,9 +40401,7 @@ var render = function() {
                 })
               ],
               2
-            ),
-            _vm._v(" "),
-            _c("span", [_vm._v("Sélectionné : " + _vm._s(_vm.data.id))])
+            )
           ]),
           _c("div", {}, [
             _c(
@@ -40636,21 +40608,23 @@ var render = function() {
                   ])
                 }),
                 _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: " mt-2 center" },
-                  [
-                    _c(
-                      "Button",
-                      {
-                        staticClass: "primary",
-                        on: { click: _vm.assignRoles }
-                      },
-                      [_vm._v("Assign")]
+                _vm.data.id != ""
+                  ? _c(
+                      "div",
+                      { staticClass: " mt-2 center" },
+                      [
+                        _c(
+                          "Button",
+                          {
+                            staticClass: "primary",
+                            on: { click: _vm.assignRoles }
+                          },
+                          [_vm._v("Assign")]
+                        )
+                      ],
+                      1
                     )
-                  ],
-                  1
-                )
+                  : _vm._e()
               ],
               2
             )
@@ -40731,10 +40705,12 @@ var render = function() {
               _c("div", { staticClass: "modal-content" }, [
                 _vm._m(0),
                 _vm._v(" "),
-                _c("div", { staticClass: "modal-body" }, [
+                _c("div", { staticClass: "modal-body m-2" }, [
                   _c("form", [
                     _c("div", { staticClass: "form-group" }, [
-                      _c("label", { attrs: { for: "NomFr" } }, [_vm._v("Nom")]),
+                      _c("label", { attrs: { for: "roleName" } }, [
+                        _vm._v("Nom")
+                      ]),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -40748,7 +40724,7 @@ var render = function() {
                         staticClass: "form-control",
                         attrs: {
                           type: "text",
-                          name: "NomFr",
+                          name: "roleName",
                           placeholder: "Role"
                         },
                         domProps: { value: _vm.data.roleName },
@@ -40794,56 +40770,57 @@ var render = function() {
           _c("div", {}, [
             _c(
               "table",
-              { staticClass: "_table" },
+              { staticClass: " table tab-content table-bordered" },
               [
                 _vm._m(1),
                 _vm._v(" "),
                 _vm._l(_vm.roles, function(role, i) {
-                  return this.roles
-                    ? _c("tr", { key: i }, [
-                        _c("td", [_vm._v(_vm._s(role.id))]),
-                        _vm._v(" "),
-                        _c("td", {}, [_vm._v(_vm._s(role.roleName))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(role.created_at))]),
+                  return _c("tr", { key: i, attrs: { value: role.id } }, [
+                    _c("td", [_vm._v(_vm._s(role.id))]),
+                    _vm._v(" "),
+                    _c("td", {}, [_vm._v(_vm._s(role.roleName))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(role.created_at))]),
+                    _vm._v(" "),
+                    _c(
+                      "td",
+                      {},
+                      [
+                        _c(
+                          "Button",
+                          {
+                            staticClass: "btn-secondary btn btn-group-sm",
+                            attrs: { type: "info", size: "small" },
+                            on: {
+                              click: function($event) {
+                                return _vm.showEditModal(role, i)
+                              }
+                            }
+                          },
+                          [_vm._v("Edit")]
+                        ),
                         _vm._v(" "),
                         _c(
-                          "td",
-                          [
-                            _c(
-                              "Button",
-                              {
-                                attrs: { type: "info", size: "small" },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.showEditModal(role, i)
-                                  }
-                                }
-                              },
-                              [_vm._v("Edit")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "Button",
-                              {
-                                attrs: {
-                                  type: "error",
-                                  size: "small",
-                                  loading: role.isDeleting
-                                },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.showDeletingModal(role, i)
-                                  }
-                                }
-                              },
-                              [_vm._v("Delete")]
-                            )
-                          ],
-                          1
+                          "Button",
+                          {
+                            staticClass: "btn-danger btn btn-group-sm",
+                            attrs: {
+                              type: "error",
+                              size: "small",
+                              loading: role.isDeleting
+                            },
+                            on: {
+                              click: function($event) {
+                                return _vm.showDeletingModal(role, i)
+                              }
+                            }
+                          },
+                          [_vm._v("Delete")]
                         )
-                      ])
-                    : _vm._e()
+                      ],
+                      1
+                    )
+                  ])
                 })
               ],
               2
@@ -40862,7 +40839,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "modal-header" }, [
       _c(
         "h5",
-        { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
+        { staticClass: "modal-title  m-2", attrs: { id: "exampleModalLabel" } },
         [_vm._v("Ajouter un Employe")]
       ),
       _vm._v(" "),
@@ -42859,190 +42836,30 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("ul", { staticClass: "navbar-nav mr-auto" }, [
-      _c(
-        "li",
-        { staticClass: "nav-item" },
-        [
-          _c(
-            "router-link",
-            {
-              staticClass: "nav-link",
-              attrs: { to: "/federationlaravel/public/Offices" }
-            },
-            [_vm._v("Offices")]
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "li",
-        { staticClass: "nav-item" },
-        [
-          _c(
-            "router-link",
-            {
-              staticClass: "nav-link",
-              attrs: { to: "/federationlaravel/public/Handicap" }
-            },
-            [_vm._v("Handicap")]
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "li",
-        { staticClass: "nav-item" },
-        [
-          _c(
-            "router-link",
-            {
-              staticClass: "nav-link",
-              attrs: { to: "/federationlaravel/public/Employe" }
-            },
-            [_vm._v("Employe")]
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "li",
-        { staticClass: "nav-item" },
-        [
-          _c(
-            "router-link",
-            {
-              staticClass: "nav-link",
-              attrs: { to: "/federationlaravel/public/Student" }
-            },
-            [_vm._v("Student")]
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "li",
-        { staticClass: "nav-item" },
-        [
-          _c(
-            "router-link",
-            {
-              staticClass: "nav-link",
-              attrs: { to: "/federationlaravel/public/Material" }
-            },
-            [_vm._v("Material")]
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "li",
-        { staticClass: "nav-item" },
-        [
-          _c(
-            "router-link",
-            {
-              staticClass: "nav-link",
-              attrs: { to: "/federationlaravel/public/Parent" }
-            },
-            [_vm._v("Parent")]
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "li",
-        { staticClass: "nav-item" },
-        [
-          _c(
-            "router-link",
-            {
-              staticClass: "nav-link",
-              attrs: { to: "/federationlaravel/public/Vehicle" }
-            },
-            [_vm._v("Vehicle")]
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "li",
-        { staticClass: "nav-item" },
-        [
-          _c(
-            "router-link",
-            {
-              staticClass: "nav-link",
-              attrs: { to: "/federationlaravel/public/AssignRole" }
-            },
-            [_vm._v("Assign Role")]
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "li",
-        { staticClass: "nav-item" },
-        [
-          _c(
-            "router-link",
-            {
-              staticClass: "nav-link",
-              attrs: { to: "/federationlaravel/public/Role" }
-            },
-            [_vm._v("Role")]
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "li",
-        { staticClass: "nav-item" },
-        [
-          _c(
-            "router-link",
-            { staticClass: "nav-link", attrs: { to: "/About" } },
-            [_vm._v("About")]
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "li",
-        { staticClass: "nav-item" },
-        [
-          _c(
-            "router-link",
-            { staticClass: "nav-link", attrs: { to: "/Contact" } },
-            [_vm._v("Contact")]
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "li",
-        { staticClass: "nav-item" },
-        [
-          _c(
-            "router-link",
-            { staticClass: "nav-link", attrs: { to: "/More" } },
-            [_vm._v("More")]
-          )
-        ],
-        1
-      )
-    ])
+    _c(
+      "ul",
+      { staticClass: "navbar-nav mr-auto" },
+      _vm._l(_vm.permission, function(nav, i) {
+        return _c(
+          "li",
+          { key: i, staticClass: "nav-item" },
+          [
+            nav.read
+              ? _c(
+                  "router-link",
+                  {
+                    staticClass: "nav-link",
+                    attrs: { to: "/federationlaravel/public/" + nav.name }
+                  },
+                  [_vm._v(_vm._s(nav.resourceName))]
+                )
+              : _vm._e()
+          ],
+          1
+        )
+      }),
+      0
+    )
   ])
 }
 var staticRenderFns = []

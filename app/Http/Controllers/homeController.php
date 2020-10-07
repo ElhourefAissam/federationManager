@@ -13,6 +13,7 @@ class HomeController extends Controller
 {
     public function index(Request $request)
     {
+        // dd($user = Auth::user()->role);
         // return view('Home.index');
         if (!Auth::check() && $request->path() != 'login') {
             return redirect('/login');

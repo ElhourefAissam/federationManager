@@ -8,6 +8,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/getRoles', 'Api\AdminController@getRoles');
+Route::post('/addRole', 'Api\AdminController@addRole');
 Route::post('/assignRole', 'Api\AdminController@assignRole');
 
 Route::get('/handicap/{q?}', 'Api\HandicapController@index');
