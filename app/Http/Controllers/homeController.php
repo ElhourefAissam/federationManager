@@ -29,7 +29,7 @@ class HomeController extends Controller
 
     public function checkForPermission($user, $request)
     {
-        $permission = json_decode($user->role->permission);
+        //$permission = json_decode($user->role->permission);
         
         $hasPermission = false;
         if (!$permission) {
